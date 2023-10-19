@@ -13,34 +13,7 @@ import com.gennadysx.documentscanner.utils.ImageUtil
  * @constructor creates demo activity
  */
 class MainActivity : AppCompatActivity() {
-    /**
-     * @property croppedImageView the cropped image view
-     */
-    private lateinit var croppedImageView: ImageView
 
-    /**
-     * @property documentScanner the document scanner
-     */
-    private val documentScanner = DocumentScanner(
-        this,
-        { croppedImageResults ->
-            // display the first cropped image
-            croppedImageView.setImageBitmap(
-                ImageUtil().readBitmapFromFileUriString(
-                    croppedImageResults.first(),
-                    contentResolver
-                )
-            )
-        },
-        {
-            // an error happened
-                errorMessage -> Log.v("documentscannerlogs", errorMessage)
-        },
-        {
-            // user canceled document scan
-            Log.v("documentscannerlogs", "User canceled document scan")
-        }
-    )
 
     /**
      * called when activity is created
@@ -50,11 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportFragmentManager.beginTransaction().add(R.id.main_fragment, MainFragment()).commit()
 
-        // cropped image
-        croppedImageView = findViewById(R.id.cropped_image_view)
 
-        // start document scan
-        documentScanner.startScan()
-    }
 }

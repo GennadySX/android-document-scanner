@@ -136,6 +136,6 @@ class DocumentScanner(
         activity.registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult -> handleDocumentScanIntentResult(result) }
-            .launch(createDocumentScanIntent())
+    .launch(createDocumentScanIntent())
     }
 }
